@@ -1,10 +1,5 @@
 // Select color input
 const colorPicker = document.getElementById('colorPicker');
-let color = colorPicker.value;
-
-colorPicker.addEventListener('change', function(){
-	color = colorPicker.value;
-})
 
 // Select size input
 const sizePicker = document.getElementById('sizePicker');
@@ -22,34 +17,17 @@ sizePicker.addEventListener('submit', function(event){
 const table = document.getElementById('pixel_canvas');
 
 function makeGrid(height, width) {
-	const tbody = document.createElement('tbody');
-
-	// tbody is required for JS to append node into table
-	table.appendChild(tbody);
-
-	// draw rows
 	for(let r = 0; r < height; r++) {
-		tbody.appendChild( makeNewRow(width) );	
-	}
+		// insert rows into the table
+		const row = table.insertRow(r);
+		for(let c = 0; c < width; c++) {
+			// insert cells into each of the row
+			const cell = row.insertCell(c);
 
-	// add event listener to all table cells
-	const td = document.getElementsByTagName('td');
-
-	Array.prototype.forEach.call(td, function(td){
-		td.addEventListener('click', function(){
-			td.style.backgroundColor = color;
-		})
-	})
-
-	// populate one row with columns = width
-	function makeNewRow ( columns ) {
-		let tr = document.createElement('tr');
-
-		for(let c = 0; c < columns; c++) {
-			tr.appendChild( document.createElement('td') );
+	    cell.addEventListener('click', function(){ 
+	      cell.style.backgroundColor = colorPicker.value; 
+	    }) 
 		}
-
-		return tr	;
 	}
 }
 
